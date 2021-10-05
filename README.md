@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/AMG_Logo.svg" alt="AMG" width=200> 
+</p>
+
 # Automated Metadata Generation (amg)
 This project takes metadata from disparate sources, homogenizes them, and then writes out to common metadata formats. Right now, STAC and FGDC metadata writes are supported.
 
