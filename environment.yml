@@ -15,4 +15,4 @@ dependencies:
   - pip
   - yaml
   - pip:
-      - gis-metadata-parser
+      - gis-metadata-parser >= 1.2.6
