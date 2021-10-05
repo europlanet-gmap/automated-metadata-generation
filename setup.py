@@ -9,7 +9,7 @@ with open('README.md', 'r') as f:
 def setup_package():
     setup(
         name = "amg",
-        version = '0.2.1',
+        version = '0.3.0',
         author = "Jay Laura",
         author_email = "jlaura@usgs.gov",
         description = ("Automated metadata generation"),
