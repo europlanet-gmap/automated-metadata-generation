@@ -1,8 +1,6 @@
 import pvl
 from shapely import wkt
 
-from amg.utils import check_key
-
 
 class IsisGeomBase():
     """
