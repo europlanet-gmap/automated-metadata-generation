@@ -158,14 +158,16 @@ def check_geometry_size(footprint):
 
 extension_lookup = {"https://stac-extensions.github.io/projection/v1.0.0/schema.json": populate_projection_extension,
                     "https://stac-extensions.github.io/datacube/v1.0.0/schema.json": populate_datacube_extension,
-                    "https://stac-extensions.github.io/view/v1.0.0/schema.json": populate_viewgeometry_extension}
+                    "https://stac-extensions.github.io/view/v1.0.0/schema.json": populate_viewgeometry_extension,
+                    "https://raw.githubusercontent.com/thareUSGS/ssys/main/json-schema/schema.json": populate_ssys_extension}
 
 
 
 def to_stac(obj, 
             extensions=["https://stac-extensions.github.io/projection/v1.0.0/schema.json",
                         "https://stac-extensions.github.io/datacube/v1.0.0/schema.json",
-                        "https://stac-extensions.github.io/view/v1.0.0/schema.json"],
+                        "https://stac-extensions.github.io/view/v1.0.0/schema.json",
+                        "https://raw.githubusercontent.com/thareUSGS/ssys/main/json-schema/schema.json"],
             assets={},
             collection=None):    
     

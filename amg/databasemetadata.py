@@ -2,7 +2,9 @@ import sqlite3
 
 import sqlalchemy
 from shapely import wkt
+from shapely.geometry import Point
 
+from amg.utils import fix_footprint_domain
 
 class DbMetadata():
     """
@@ -67,12 +69,15 @@ class DbMetadata():
             self.engine = sqlalchemy.create_engine(f'{uri}/{dbname}')
         self.sql = sql
 
+
     @property
     def footprint(self):
         if not hasattr(self, '_footprint'):
             with self.engine.connect() as connection:
                 result = connection.execute(self.sql).fetchone()
                 self._footprint = wkt.loads(result[0])
+            #self._footprint = fix_footprint_domain(self._footprint)
+
         return self._footprint
 
     @property
@@ -81,11 +86,16 @@ class DbMetadata():
 
     @property
     def bbox(self):
-        return self.footprint.bounds
+        bbox = [b - 360 if b > 180 else b for b in self.footprint.bounds]
+        print('BBOX', bbox)
+        return bbox
     
     @property
     def centroid(self):
-        return self.footprint.centroid
+        x = self.footprint.centroid.x
+        if x >= 180:
+            x -= 360
+        return Point(x, self.footprint.centroid.y)
 
 
 class GenericSQLite():

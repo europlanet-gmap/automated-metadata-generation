@@ -3,6 +3,21 @@ import json
 import os
 from typing import Sequence
 
+import numpy as np
+from shapely.ops import split
+from shapely.affinity import translate
+from shapely.geometry import LineString, MultiPolygon
+
+
+def fix_footprint_domain(footprint):
+    geoms = split(footprint, LineString([[180, -90], [180,90]]))
+    
+    for geom in geoms:
+        if (np.asarray(geom.exterior.coords.xy[0]) > 180).any():
+            geom = translate(geom, xoff=-360)
+
+    return geom
+
 def find_file(*path: Sequence[str]) -> str:
     """
     Find a single file along a given PATH.
