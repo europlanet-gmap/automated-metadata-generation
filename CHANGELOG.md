@@ -35,8 +35,14 @@ release.
 
 ## [Unreleased]
 
+## [0.3.0 2021-11-05]
+
+### Added
+- Added driver for ISIS caminfo PVL output
+
 ### Fixed
 - Removed deprecated `getchildren` call in XML parsing in the fgdcmetadata object
 - Added CI for py3.9
 - Added support for view geometry STAC extension
 - Updates API to pystac 1.0.0 with proper extension support
+

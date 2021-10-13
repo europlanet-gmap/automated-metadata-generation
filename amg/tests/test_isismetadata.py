@@ -16,6 +16,14 @@ def isis_cubelabel(datadir):
     return imd.IsisMetadata(os.path.join(datadir, 'cube.label'))
 
 
+@pytest.fixture
+def isis_caminfolabel(datadir):
+    return imd.IsisCamInfo(os.path.join(datadir, 'caminfo.pvl'))
+
+@pytest.fixture
+def isis_caminfolabel_nogeom(datadir):
+    return imd.IsisCamInfo(os.path.join(datadir, 'caminfo_nogeom.pvl'))
+
 class TestIsisFootprintBlob():
 
     def test_data(self, isis_footprintblob):
@@ -60,3 +68,67 @@ class TestIsisMetadata():
         data = isis_cubelabel.data
         del data['IsisCube']['Mapping']['LongitudeDomain']
         assert isis_cubelabel.longitude_domain == None
+
+class TestIsisCamInfo():
+
+    def test_data(self, isis_caminfolabel):
+        data = isis_caminfolabel.data
+        print(type(data))
+        # PVLObject because the code steps into the 'Caminfo' PVLModule
+        assert isinstance(data, pvl.PVLObject)
+
+    def test_isislabel(self, isis_caminfolabel):
+        isislabel = isis_caminfolabel.isislabel
+        assert 'BEGIN_OBJECT = IsisCube' in isislabel
+
+    def test_originallabel(self, isis_caminfolabel):
+        originallabel = isis_caminfolabel.label
+        assert 'PDS_VERSION_ID                 = PDS3;' in originallabel
+
+    def test_stats_mean(self, isis_caminfolabel):
+        assert isis_caminfolabel.stats_mean == 4.4850017705493
+
+    def test_stats_std(self, isis_caminfolabel):
+        assert isis_caminfolabel.stats_std == 3.470610515188
+
+    def test_stats_min(self, isis_caminfolabel):
+        assert isis_caminfolabel.stats_min == -273.0
+
+    def test_stats_max(self, isis_caminfolabel):
+        assert isis_caminfolabel.stats_max == 41.093
+
+    def test_target(self, isis_caminfolabel):
+        assert isis_caminfolabel.target == 'MOON'
+
+    def test_phase_angle(self, isis_caminfolabel):
+        assert isis_caminfolabel.phase_angle == 81.765924928992
+
+    def test_emission_angle(self, isis_caminfolabel):
+        assert isis_caminfolabel.emission_angle == 14.733877019508
+
+    def test_incidence_angle(self, isis_caminfolabel):
+        assert isis_caminfolabel.incidence_angle == 79.794593365301
+
+    def test_north_azimuth(self, isis_caminfolabel):
+        assert isis_caminfolabel.north_azimuth == 89.342277203456
+
+    def test_off_nadir(self, isis_caminfolabel):
+        assert isis_caminfolabel.off_nadir == 13.80783306372
+
+    def test_solar_longitude(self, isis_caminfolabel):
+        assert isis_caminfolabel.solar_longitude == 156.57991225668
+
+    def test_subsolar_ground_azimuth(self, isis_caminfolabel):
+        assert isis_caminfolabel.subsolar_ground_azimuth == 277.28214288415
+
+    def test_local_solar_time(self, isis_caminfolabel):
+        assert isis_caminfolabel.local_solar_time == 17.166849212264
+
+    def test_footprint(self, isis_caminfolabel):
+        footprint = isis_caminfolabel.footprint
+        assert isinstance(footprint, (shapely.geometry.polygon.Polygon,
+                                    shapely.geometry.multipolygon.MultiPolygon))
+
+    def test_no_footprint(self, isis_caminfolabel_nogeom):
+        with pytest.raises(KeyError):
+            isis_caminfolabel_nogeom.footprint

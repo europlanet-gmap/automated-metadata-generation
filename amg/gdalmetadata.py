@@ -153,7 +153,7 @@ class GDALMetadata():
     
     @property
     def gsd(self):
-        return max(self.resolution_x, self.resolution_y)
+        return max(self.resolution_x, -self.resolution_y)
 
     @property
     def bands(self):

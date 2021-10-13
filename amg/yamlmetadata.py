@@ -1,3 +1,5 @@
+import warnings
+
 import yaml
 
 class YAMLMetadata():
@@ -33,6 +35,14 @@ class YAMLMetadata():
     def data(self):
         if not hasattr(self, '_data'):
             with open(self.datafile) as f:
-                self._data = yaml.load(f, Loader=yaml.FullLoader)
+                data = yaml.load(f, Loader=yaml.FullLoader)
+            self._data = {}
+            for k, v in data.items():
+                if '-' in k:
+                    newk = k.replace('-', '_')
+                    self._data[newk] = v
+                    warnings.warn('YAML file keys contained "-", while this is valid YAML, it does break this library. Remapping "-" to "_".')
+                else:
+                    self._data[k] = v
         return self._data
     

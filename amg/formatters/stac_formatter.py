@@ -87,7 +87,7 @@ def populate_viewgeometry_extension(item, obj):
         item.azimuth = obj.north_azimuth
     if obj.subsolar_ground_azimuth:
         item.sun_azimuth = obj.subsolar_ground_azimuth
-    if obj.local_incidence_angle:
+    if obj.local_incidence_angle:  # I think this should be local time
         item.sun_elevation = obj.local_incidence_angle
 
 def populate_assets(assets, obj):

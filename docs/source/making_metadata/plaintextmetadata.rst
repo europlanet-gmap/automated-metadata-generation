@@ -14,4 +14,4 @@ The plaintext metadata module is catch all for any metadata that is provided in 
   Median difference:    -1.56749
   Writing difference file: results_ba/G01_018668_2065_XN_26N188W__B21_017956_2065_XN_26N188W_ba-FINAL_geodiff-diff.csv
 
-The readers in the plaintextmetadata module all parse an input line by line and expose some custom data. For example, the median difference. See :ref:`code_plaintextmetadata` for the API to use plaintext objects.
+The readers in the plaintextmetadata module all parse an input line by line and expose the data provided in each line as a separate field. For example, the median difference can be exposed in this manner. See :ref:`code_plaintextmetadata` for the API to use plaintext objects.
