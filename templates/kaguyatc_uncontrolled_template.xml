@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Jason Laura</origin>
+        <pubdate>20211101</pubdate>
+        <title> Kaguya Terrain Camera Image (Uncontrolled); {image}</title>
+        <geoform>raster digital data</geoform>
+        <onlink>https://doi.org/10.5066/P9SH5YNV</onlink>
+        <lworkcit>
+          <citeinfo>
+            <origin>NASA-USGS Interagency Agreement #NNH16AC13I</origin>
+            <pubdate>20211101</pubdate>
+            <title> Kaguya Terrain Camera Image (Uncontrolled); {image}</title>
+            <geoform>raster digital data</geoform>
+            <pubinfo>
+              <pubplace>Flagstaff, Arizona</pubplace>
+              <publish>United States Geological Survey, Astrogeology Science Center</publish>
+            </pubinfo>
+            <onlink>http://astrogeology.usgs.gov</onlink>
+          </citeinfo>
+        </lworkcit>
+            </citeinfo>
+    </citation>
+    <descript>
+      <abstract>This is an uncontrolled Kaguya Terrain Camera (TC) image from the Japan Aerospace Exploration Agency (JAXA) SELenological and ENgineering Explorer (SELENE) mission. The original data product is a PDS3 like, IMG formatted data file. This data has been minimally processed into an analysis ready data format for use in geospatial software. These data are uncontrolled meaning the position of each image relative to other images uses the unmodified spacecraft ephemeris information. No expectation of alignment should be made.</abstract>
+      <purpose>This image data was generated for general and public use, including scientific and engineering purposes. </purpose>
+     </descript>
+    <timeperd>
+      <timeinfo>
+        <sngdate>
+          <caldate>20211101</caldate>
+        </sngdate>
+      </timeinfo>
+      <current>Publication date</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None</update>
+    </status>
+    <spdom>
+      <bounding>
+        <westbc></westbc>
+        <eastbc></eastbc>
+        <northbc></northbc>
+        <southbc></southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekey>JAXA</themekey>
+        <themekey>SELENE</themekey>
+        <themekey>Kaguya</themekey>
+        <themekey>Terrain Camera</themekey>
+        <themekey>Lunar</themekey>
+        <themekey>Moon (Earth’s Moon)</themekey>
+        <themekey>Elevation</themekey>
+        <themekt>None</themekt>
+       </theme>
+      <place>
+        <placekt>http://science.nasa.gov/glossary</placekt>
+        <placekey>Moon</placekey>
+      </place>
+    </keywords>
+    <accconst>None</accconst>
+    <useconst>None</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntperp>
+          <cntper>Marc Hunter</cntper>
+          <cntorg>U.S. Geological Survey, Southwest Region</cntorg>
+        </cntperp>
+        <cntpos>IT Specialist</cntpos>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>2255 North Gemini Drive</address>
+          <city>Flagstaff</city>
+          <state>AZ</state>
+          <postal>86001</postal>
+          <country>US</country>
+        </cntaddr>
+          <cntvoice>928-556-7220</cntvoice>
+          <cntemail>mahunter@usgs.gov</cntemail>
+      </cntinfo>
+    </ptcontac>
+    <datacred>JAXA SELenological and ENgineering Explorer (SELENE)</datacred>
+    <secinfo>
+      <secsys>None</secsys>
+      <secclass>Unclassified</secclass>
+      <sechandl>None</sechandl>
+    </secinfo>
+    <native>Data generated using ISIS6.0.0, GDAL 3.1.4</native>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>See Process Steps</attraccr>
+    </attracc>
+    <logic>See Process Steps</logic>
+    <complete>Data were dropped from this collection that failed ingestion into the ISIS tools due to lack of ephemeris data or when it was not possible to compute image footprint data.</complete>
+    <posacc>
+      <horizpa>
+        <horizpar>A priori Kaguya TC pointing is generally within plus or minus 50m of the LOLA datum.</horizpar>
+        <qhorizpa>
+          <horizpav></horizpav>
+          <horizpae></horizpae>
+        </qhorizpa>
+      </horizpa>
+      <vertacc>
+        <vertaccr>These data are uncontrolled to any lunar geodetic coordinate reference frame or datum. They are orthorectified onto the LOLA DTM and have a vertical accuracy inline with the LOLA DTM (~1m). These data are not photogrammetrially controlled and horizontal misalignment with LOLA can result in vertical errors greater than the LOLA vertical accuracy.</vertaccr>
+          <qvertpa>
+          <vertaccv></vertaccv>
+          </qvertpa>
+      </vertacc>
+    </posacc>
+    <lineage>
+      <srcinfo>
+        <srccite>
+          <citeinfo>
+            <origin>Kato M., et al.</origin>
+            <origin>Kato, M., Sasaki, S., Takizawa, Y. et al. The Kaguya Mission Overview. Space Sci Rev 154, 3–19 (2010). https://doi.org/10.1007/s11214-010-9678-3.</origin>
+            <pubdate>2010</pubdate>
+            <title>The Kaguya Mission Overview</title>
+            <geoform>document</geoform>
+            <onlink>https://link.springer.com/article/10.1007/s11214-010-9678-3</onlink>
+          </citeinfo>
+        </srccite>
+        <typesrc>Planetary Data System (PDS) Reduced Data Record (RDR)</typesrc>
+        <srctime>
+          <timeinfo>
+            <rngdates>
+              <begdate>2007</begdate>
+              <enddate>2020</enddate>
+            </rngdates>
+          </timeinfo>
+          <srccurr>ground condition</srccurr>
+        </srctime>
+        <srccitea>Kaguya TC visible</srccitea>
+        <srccontr>http://darts.isas.jaxa.jp/planet/pdap/selene/index.html.en</srccontr>
+      </srcinfo>
+      <procstep>
+        <procdesc>Data were downloaded in bulk from the JAXA PDS3 like data archive. All data were unzipped and ingested into ISIS using the kaguyatc2isis application. Once ingested, camera statistics and image footprints were computed using the caminfo tool. Data are projected into one of 120 lunar Universal Transverse Mercator (UTM) zones based on the image center longitude using the cam2map tool. Once projected, data are converted into cloud optimized geotiffs (COGs) for efficient remote access and ancillary metadata are generated. All processing of the data are fully described in the provenance.txt file that is made available alongside the data files.</procdesc>
+        <procdate>20211015</procdate>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <spdoinfo>
+    <direct>Raster</direct>
+    <rastinfo>
+      <rasttype>Grid Cell</rasttype>
+      <rowcount></rowcount>
+      <colcount></colcount>
+      <vrtcount>1</vrtcount>
+    </rastinfo>
+  </spdoinfo>
+  <spref>
+    <horizsys>
+      <planar>
+        <mapproj>
+        </mapproj>
+        <planci>
+          <plance>row and column</plance>
+          <coordrep>
+            <absres>1.0</absres>
+            <ordres>1.0</ordres>
+          </coordrep>
+          <plandu>meters</plandu>
+        </planci>
+      </planar>
+      <geodetic>
+        <horizdn></horizdn>
+        <ellips>Lunar Orbiter Laser Altimeter DTM</ellips>
+        <semiaxis></semiaxis>
+        <denflat></denflat>
+      </geodetic>
+    </horizsys>
+  </spref>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntperp>
+          <cntper>Marc Hunter</cntper>
+          <cntorg>U.S. Geological Survey, Southwest Region</cntorg>
+        </cntperp>
+        <cntpos>IT Specialist</cntpos>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>2255 North Gemini Drive</address>
+          <city>Flagstaff</city>
+          <state>AZ</state>
+          <postal>86001</postal>
+          <country>US</country>
+        </cntaddr>
+          <cntvoice>928-556-7220</cntvoice>
+          <cntemail>mahunter@usgs.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <distliab>Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS), no warranty expressed or implied is made regarding the display or utility of the data for other purposes, nor on all computer systems, nor shall the act of distribution constitute any such warranty. Any use of trade, firm, or product names is for descriptive purposes only and does not imply endorsement by the U.S. Government.
+</distliab>
+    <stdorder>
+      <digform>
+        <digtinfo>
+          <formname>Digital Data</formname>
+        </digtinfo>
+        <digtopt>
+          <onlinopt>
+            <computer>
+              <networka>
+                <networkr></networkr>
+              </networka>
+            </computer>
+          </onlinopt>
+        </digtopt>
+      </digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20211015</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Marc Hunter</cntper>
+          <cntorg>U.S. Geological Survey, Southwest Region</cntorg>
+        </cntperp>
+        <cntpos>IT Specialist</cntpos>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>2255 North Gemini Drive</address>
+          <city>Flagstaff</city>
+          <state>AZ</state>
+          <postal>86001</postal>
+          <country>US</country>
+        </cntaddr>
+          <cntvoice>928-556-7220</cntvoice>
+        <cntemail>mahunter@usgs.gov</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Content Standards for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001-1998</metstdv>
+  </metainfo>
+</metadata>

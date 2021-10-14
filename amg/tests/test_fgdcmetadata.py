@@ -18,6 +18,10 @@ def fgdc_metadata_polarst(datadir):
     return fgdc.FGDCMetadata(os.path.join(datadir, 'fgdc_template.xml'), proj='polarst')
 
 @pytest.fixture
+def fgdc_metadata_transmer(datadir):
+    return fgdc.FGDCMetadata(os.path.join(datadir, 'fgdc_template.xml'), proj='transmer')
+
+@pytest.fixture
 def fgdc_metadata(datadir):
     return fgdc.FGDCMetadata(os.path.join(datadir, 'fgdc_template.xml'))
 
@@ -77,6 +81,12 @@ class TestFGDCMetadata():
 
     def test_license(self, fgdc_metadata):
         assert fgdc_metadata.license == 'The distribution liability statement.'
+
+class TestTransverseMercator():
+
+    def test_data(self, fgdc_metadata_transmer):
+        data = fgdc_metadata_transmer.data
+        assert isinstance(data, fgdc.TransverseMercatorFgcdParser)
 
 class TestEquirectangular():
     

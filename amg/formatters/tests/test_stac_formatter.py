@@ -47,7 +47,7 @@ def _test_projection(item):
 
 def _test_view(item):
     # Since the internals maintain the ISIS nomenclature, need to use a lookup for key/value testing
-    for key, value in {'view:sun_elevation': 'local_incidence_angle',
+    for key, value in {'view:sun_elevation': 'local_solar_time',
                        'view:sun_azimuth': 'subsolar_ground_azimuth',
                        'view:off_nadir': 'emission_angle', 
                        'view:azimuth': 'north_azimuth'}.items():

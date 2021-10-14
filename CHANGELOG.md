@@ -35,6 +35,13 @@ release.
 
 ## [Unreleased]
 
+### Added
+  - Added support for transverse mercator projection in FGDC driver
+
+### Fixed
+  - Sun elevation is using local time or local solar time and not local
+    incidence angle
+
 ## [0.3.0 2021-11-05]
 
 ### Added

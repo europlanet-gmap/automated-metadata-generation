@@ -201,6 +201,46 @@ class BaseCustomParser(FgdcParser):
         dom_string = minidom.parseString(serialized).toprettyxml(indent='  ', encoding='UTF-8')
         return b'\n'.join([s for s in dom_string.splitlines() if s.strip()])
 
+class TransverseMercatorFgcdParser(BaseCustomParser):
+    """
+    A custom projection class to support transverse mercator projections
+    in the FGDC metadata.
+    """
+
+    def _init_data_map(self):
+        super(TransverseMercatorFgcdParser, self)._init_data_map()
+
+        # Define PROJECTION as a complext structure
+        mp_definition = {
+            'name':'{name}',
+            'center_longitude':'{center_longitude}',
+            'origin_latitude': '{origin_latitude}',
+            'scale_factor':'{scale_factor}',
+            'false_easting':'{false_easting}',
+            'false_northing':'{false_northing}'
+        }
+
+        mp_prop = 'projection'
+        mp_xpath = 'spref/horizsys/planar/mapproj/{mp_path}'
+
+        # Add PROJECTION structure to data map      
+        self._data_structures[mp_prop] = format_xpaths(
+            mp_definition,
+            name=mp_xpath.format(mp_path='mapprojn'),
+            scale_factor=mp_xpath.format(mp_path='transmer/sfctrmer'),
+            center_longitude=mp_xpath.format(mp_path='transmer/longcm'),
+            origin_latitude=mp_xpath.format(mp_path='transmer/latprjo'),
+            false_easting=mp_xpath.format(mp_path='transmer/feast'),
+            false_northing=mp_xpath.format(mp_path='transmer/fnorth')
+        )
+
+        # Set the root and add getter/setter (parser/updater) to the data map
+        self._data_map['_{prop}_root'.format(prop=mp_prop)] = mp_prop
+        self._data_map[mp_prop] = ParserProperty(self._parse_complex, self._update_complex)
+        
+        # Let the parent validation logic know about the two new custom properties
+        self._metadata_props.add(mp_prop)
+
 class OrthographicFgdcParser(BaseCustomParser):
     """
     A custom projection class to support orthographic projections 
@@ -360,7 +400,8 @@ class FGDCMetadata():
 
     parser_lookup = {'equirect' : EquirectangularFgdcParser,
                      'polarst' : PolarStereoGraphicFgdcParser, 
-                     'orthogr': OrthographicFgdcParser}
+                     'orthogr': OrthographicFgdcParser,
+                     'transmer':TransverseMercatorFgcdParser}
 
     def __init__(self, xmlfile, proj=None):
         self.xmlfile = xmlfile

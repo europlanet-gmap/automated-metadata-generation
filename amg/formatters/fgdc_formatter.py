@@ -19,7 +19,13 @@ fgdc_to_osr_translation = {'equirect':[
                                 ('center_longitude',osr.SRS_PP_CENTRAL_MERIDIAN),
                                 ('center_latitude',osr.SRS_PP_LATITUDE_OF_ORIGIN),
                                 ('false_easting',osr.SRS_PP_FALSE_EASTING),
-                                ('false_northing',osr.SRS_PP_FALSE_NORTHING)]
+                                ('false_northing',osr.SRS_PP_FALSE_NORTHING)],
+                            'transmer': [
+                                ('center_longitude', osr.SRS_PP_CENTRAL_MERIDIAN),
+                                ('origin_latitude', osr.SRS_PP_LATITUDE_OF_ORIGIN),
+                                ('scale_factor', osr.SRS_PP_SCALE_FACTOR),
+                                ('false_easting', osr.SRS_PP_FALSE_EASTING),
+                                ('false_northing', osr.SRS_PP_FALSE_NORTHING)]
                             }
 
 def lookup_projection_name(name):
@@ -33,6 +39,9 @@ def lookup_projection_name(name):
         return 'polarst'
     elif 'orthographic' in name:
         return 'orthogr'
+    elif 'transverse_mercator' in name:
+        return 'transmer'
+    
 
 
 def populate_projection_information(template, obj):

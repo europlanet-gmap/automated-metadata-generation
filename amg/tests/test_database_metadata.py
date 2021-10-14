@@ -20,7 +20,7 @@ def polygon():
 def test_bbox(database_metadata, polygon):
     with patch('amg.databasemetadata.DbMetadata.footprint', new_callable=PropertyMock) as mock_footprint:
         mock_footprint.return_value = polygon
-        assert database_metadata.bbox == (0.0, 0.0, 1.0, 1.0)
+        assert database_metadata.bbox == [0.0, 0.0, 1.0, 1.0]
 
 def test_geometry(database_metadata, polygon):
     with patch('amg.databasemetadata.DbMetadata.footprint', new_callable=PropertyMock) as mock_footprint:
