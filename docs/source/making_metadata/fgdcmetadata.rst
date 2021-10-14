@@ -33,6 +33,7 @@ Supported projections are:
   - 'orthogr' - orthographic
   - 'equirect' - equirectangular
   - 'polatsr' - polar stereographic
+  - 'transmer' - transverse mercator
 
 Warnings, Caveats, and TODOs
 ----------------------------
