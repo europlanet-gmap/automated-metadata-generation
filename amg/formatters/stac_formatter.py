@@ -200,6 +200,7 @@ def to_stac(obj,
         if not isinstance(dt, (datetime.datetime)):
             dt = parser.parse(dt)
     else:
+        dt = obj.start_date
         properties['start_datetime'] = obj.start_date
         properties['stop_datetime'] = obj.stop_date
     

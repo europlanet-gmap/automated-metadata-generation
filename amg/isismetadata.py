@@ -251,3 +251,10 @@ class IsisCamInfo(IsisGeomBase):
         fp = wkt.loads(self.data['Polygon'].get('GisFootprint'))
         return fp
 
+    @property
+    def start_date(self):
+        return self.data['Geometry'].get('StartTime', None)
+
+    @property
+    def stop_date(self):
+        return self.data['Geometry'].get('EndTime', None)

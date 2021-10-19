@@ -1,3 +1,4 @@
+import datetime
 import glob
 import json
 import os
@@ -8,6 +9,20 @@ from shapely.ops import split
 from shapely.affinity import translate
 from shapely.geometry import LineString, MultiPolygon
 
+
+class JsonEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        if isinstance(obj, np.int64):
+            return int(obj)
+        if isinstance(obj, datetime.datetime):
+            return obj.__str__()
+        if isinstance(obj, bytes):
+            return obj.decode('utf-8')
+        if isinstance(obj, set):
+            return sorted(list(obj))
+        return json.JSONEncoder.default(self, obj)
 
 def fix_footprint_domain(footprint):
     geoms = split(footprint, LineString([[180, -90], [180,90]]))
@@ -92,7 +107,7 @@ def write_stac(path: str, stac_md: dict):
     """
     stac_dict = stac_md.to_dict()
     with open(path, 'w') as f:
-        json.dump(stac_dict, f, indent=2)
+        json.dump(stac_dict, f, indent=2, cls=JsonEncoder)
 
 # TODO: Homogenize providers internal to amg
 """class Provider():

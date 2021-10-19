@@ -1,3 +1,4 @@
+import datetime
 import os
 
 import geojson
@@ -128,6 +129,14 @@ class TestIsisCamInfo():
         footprint = isis_caminfolabel.footprint
         assert isinstance(footprint, (shapely.geometry.polygon.Polygon,
                                     shapely.geometry.multipolygon.MultiPolygon))
+
+    def test_start_date(self, isis_caminfolabel):
+        expected = datetime.datetime.strptime('2008-07-17T20:15:35.150081', '%Y-%m-%dT%H:%M:%S.%f')
+        assert isis_caminfolabel.start_date == expected
+
+    def test_stop_date(self, isis_caminfolabel):
+        expected = datetime.datetime.strptime('2008-07-17T20:16:05.413806', '%Y-%m-%dT%H:%M:%S.%f')
+        assert isis_caminfolabel.stop_date == expected
 
     def test_no_footprint(self, isis_caminfolabel_nogeom):
         with pytest.raises(KeyError):

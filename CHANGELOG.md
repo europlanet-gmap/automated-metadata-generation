@@ -37,10 +37,13 @@ release.
 
 ### Added
   - Added support for transverse mercator projection in FGDC driver
-
+  - Added start_date, stop_date to CamInfo driver
+  - Added JSONEncoder class to support encoding numpy arrays and datetime objects
+  
 ### Fixed
   - Sun elevation is using local time or local solar time and not local
     incidence angle
+  - Fixed a bug where STAC observation date was not written when start/stop time were parsed
 
 ## [0.3.0 2021-11-05]
 
