@@ -69,7 +69,7 @@ class IsisFootPrintBlob(IsisGeomBase):
     @property
     def data(self):
         if not hasattr(self, '_data'):
-            self._data = pvl.load(self.datafile)
+            self._data = pvl.load(self.datafile, grammar=pvl.grammar.ISISGrammar())
         return self._data
 
 class IsisMetadata(IsisGeomBase):
@@ -98,7 +98,7 @@ class IsisMetadata(IsisGeomBase):
     @property
     def data(self):
         if not hasattr(self, '_data'):
-            self._data = pvl.load(self.datafile)
+            self._data = pvl.load(self.datafile, grammar=pvl.grammar.ISISGrammar())
         return self._data
 
     @property
@@ -183,7 +183,7 @@ class IsisCamInfo(IsisGeomBase):
     @property
     def data(self):
         if not hasattr(self, '_data'):
-            self._data = pvl.load(self.datafile)
+            self._data = pvl.load(self.datafile, grammar=pvl.grammar.ISISGrammar())
         return self._data['Caminfo']
 
     @property
