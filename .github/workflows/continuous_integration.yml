@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
        os: [ubuntu-latest, macos-latest, windows-latest]
-       python-version: ["3.7", "3.8", "3.9"]
+       python-version: ["3.8", "3.9", "3.10"]
     defaults:
       run:
         shell: bash -l {0}
@@ -49,4 +49,4 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
           verbose: true
-        if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9'
+        if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.10'
