@@ -33,17 +33,21 @@ heading to indicate that only the bug fixes and security fixes are in the bug fi
 release.
 -->
 
-## [Unreleased]
+## [1.0.0 2021-12-04]
 
 ### Added
   - Added support for transverse mercator projection in FGDC driver
   - Added start_date, stop_date to CamInfo driver
   - Added JSONEncoder class to support encoding numpy arrays and datetime objects
+  - Conda recipe for dev builds 
+  - GitHub Actions for automated dev deploy on anaconda channel
   
 ### Fixed
   - Sun elevation is using local time or local solar time and not local
     incidence angle
   - Fixed a bug where STAC observation date was not written when start/stop time were parsed
+  - Dependencies are all now coming from conda-forge (removal of all pip dependencies)
+  - Warning in pytest due to use of distutils copy_tree. Replaced with shutil.copytree
 
 ## [0.3.0 2021-11-05]
 
