@@ -9,7 +9,8 @@ source:
 
 build:
   string: "{{ GIT_DESCRIBE_NUMBER }}_dev"
-
+  noarch: python
+  
 extra:
   channels:
     - conda-forge
