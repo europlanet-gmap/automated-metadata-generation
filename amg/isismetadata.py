@@ -1,6 +1,7 @@
 import pvl
 from shapely import wkt
 
+from amg.utils import Band
 
 class IsisGeomBase():
     """
@@ -91,6 +92,9 @@ class IsisMetadata(IsisGeomBase):
 
     longitude_domain : int
                        The longitude domain parsed from the ISIS label
+
+    bands : dict
+            of amg.util.Band objects that describe the bands within the data product
     """
     def __init__(self, datafile):
         self.datafile = datafile
@@ -107,6 +111,24 @@ class IsisMetadata(IsisGeomBase):
             return self.data['IsisCube']['Mapping']['LongitudeDomain']
         except:
             return None
+
+    @property
+    def bands(self):
+        bandbin = self.data['IsisCube']['BandBin']
+        bandnumbers = bandbin.get('BandNumber', [])
+        bands = {}
+        if bandnumbers:
+            for i in bandnumbers:
+                # zero based indexing for python, 1 based for bands
+                bands[i] = Band(bandbin['FilterNumber'][i-1],
+                                center=bandbin['Center'][i-1],
+                                width=bandbin['Width'][i-1])
+        else:
+            bands[1] = Band(1,
+                            center=bandbin['Center'].value,
+                            width=bandbin['Width'].value,
+                            name=bandbin['FilterName'])
+        return bands
 
 
 class IsisCamInfo(IsisGeomBase):

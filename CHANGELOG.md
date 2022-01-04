@@ -33,6 +33,11 @@ heading to indicate that only the bug fixes and security fixes are in the bug fi
 release.
 -->
 
+## Unreleased
+
+### Added
+  - Support for parsing bands from ISIS cube labels and ability to populate stac EO extension using said metadata.
+
 ## [1.0.0 2021-12-04]
 
 ### Added

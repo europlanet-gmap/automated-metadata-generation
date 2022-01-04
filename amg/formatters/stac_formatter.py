@@ -36,6 +36,30 @@ def populate_datacube_extension(item, obj):
     item.properties['cube:dimensions'] = {'x':xdim,
                                           'y':ydim}
 
+def populate_eo_extension(item, obj):
+    """
+    Populate the EO extension in a STAC metadata record.
+
+    Parameters
+    ----------
+    item : obj
+           The STAC metadata container
+
+    obj : obj
+          An amg.UnifiedMetadata object
+    """
+    from pystac.extensions.eo import EOExtension, Band
+
+    item = EOExtension.ext(item)
+    bands = []
+    for bandnumber, band in obj.bands.items():
+        b = Band({'name':f'Band {bandnumber}',
+                  'common_name':band.name,
+                 'center_wavelength':band.center,
+                 'full_width_half_max':band.width})
+        bands.append(b)
+    item.bands = bands
+
 def populate_projection_extension(item, obj):
     """
     Populate the projection extension in a STAC metadata record.
@@ -159,7 +183,8 @@ def check_geometry_size(footprint):
 extension_lookup = {"https://stac-extensions.github.io/projection/v1.0.0/schema.json": populate_projection_extension,
                     "https://stac-extensions.github.io/datacube/v1.0.0/schema.json": populate_datacube_extension,
                     "https://stac-extensions.github.io/view/v1.0.0/schema.json": populate_viewgeometry_extension,
-                    "https://raw.githubusercontent.com/thareUSGS/ssys/main/json-schema/schema.json": populate_ssys_extension}
+                    "https://raw.githubusercontent.com/thareUSGS/ssys/main/json-schema/schema.json": populate_ssys_extension, 
+                    "https://stac-extensions.github.io/eo/v1.0.0/schema.json": populate_eo_extension}
 
 
 

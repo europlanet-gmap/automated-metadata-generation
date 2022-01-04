@@ -4,6 +4,7 @@ import pytest
 from shapely.geometry import Polygon, Point
 
 from amg.formatters import stac_formatter as sf
+from amg.utils import Band
 
 class FakeUMD():
     def __getattr__(self, key):
@@ -13,6 +14,9 @@ class FakeUMD():
             return '20210101'
         if 'centroid' in key:
             return Point(0,0)
+        if 'bands' in key:
+            return {2 : Band(2, center=6.78, width= 1.01),
+                    10 : Band(10, center=14.88, width=0.87, name='Foo')}
         return key
 
 
@@ -53,6 +57,10 @@ def _test_view(item):
                        'view:azimuth': 'north_azimuth'}.items():
         assert item.properties[key] == value
 
+def _test_eo(item):
+    print(item.properties)
+    assert item.properties['eo:bands'] == [{'name': 'Band 2', 'common_name': None, 'center_wavelength': 6.78, 'full_width_half_max': 1.01}, {'name': 'Band 10', 'common_name': 'Foo', 'center_wavelength': 14.88, 'full_width_half_max': 0.87}]
+
 def _test_cube(item):
     assert 'cube:dimensions' in item.properties
     assert item.properties['cube:dimensions']['x'] == {'type': 'spatial', 'axis': 'x', 'extent': ['b', 'o']}
@@ -69,8 +77,13 @@ def test_stac_with_view(umd):
     item = sf.to_stac(umd, extensions=["https://stac-extensions.github.io/view/v1.0.0/schema.json"])
     _test_view(item)
 
-def test_stac_with_all_extensions(umd):
+def test_stac_with_eo(umd):
+    item = sf.to_stac(umd, extensions=["https://stac-extensions.github.io/eo/v1.0.0/schema.json"])
+    _test_eo(item)
+
+def test_stac_with_all_default_extensions(umd):
     item = sf.to_stac(umd)
     _test_projection(item)
     _test_cube(item)
     _test_view(item)
+    

@@ -150,7 +150,12 @@ class Band():
                  values=[],
                  reference_system=None,
                  step=None,
-                 unit=None):
+                 unit=None, 
+                 name=None, 
+                 common_name=None, 
+                 center=None,
+                 width=None
+                 ):
         
         self.bid = bid
         self.extent_x = extent_x
@@ -159,6 +164,10 @@ class Band():
         self.reference_system = reference_system
         self.step = step
         self.unit = unit
+        self.name = name
+        self.common_name = common_name
+        self.center = center
+        self.width = width
         
     def __repr__(self):
         attrs = {'bandid':self.bid,
@@ -167,5 +176,9 @@ class Band():
                  'values':self.values,
                  'reference_system':self.reference_system,
                  'step':self.step,
-                 'unit':self.unit}
+                 'unit':self.unit,
+                 'name':self.name,
+                 'common_name':self.common_name,
+                 'center':self.center,
+                 'width':self.width}
         return json.dumps(attrs)

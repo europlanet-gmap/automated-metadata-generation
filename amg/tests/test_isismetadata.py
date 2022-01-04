@@ -16,6 +16,9 @@ def isis_footprintblob(datadir):
 def isis_cubelabel(datadir):
     return imd.IsisMetadata(os.path.join(datadir, 'cube.label'))
 
+@pytest.fixture
+def isis_cubelabel_multispectral(datadir):
+    return imd.IsisMetadata(os.path.join(datadir, 'multispectral_cube.label'))
 
 @pytest.fixture
 def isis_caminfolabel(datadir):
@@ -69,6 +72,19 @@ class TestIsisMetadata():
         data = isis_cubelabel.data
         del data['IsisCube']['Mapping']['LongitudeDomain']
         assert isis_cubelabel.longitude_domain == None
+
+    def test_bands_multispectral(self, isis_cubelabel_multispectral):
+        bands = isis_cubelabel_multispectral.bands
+        assert bands[2].bid == 2
+        assert bands[2].center == 6.78
+        assert bands[2].width == 1.01
+
+    def test_bands(self, isis_cubelabel):
+        bands = isis_cubelabel.bands
+        assert bands[1].bid == 1
+        assert bands[1].name == 'CLEAR'
+        assert bands[1].center == 0.611
+        assert bands[1].width == 0.44
 
 class TestIsisCamInfo():
 
