@@ -50,15 +50,22 @@ def populate_eo_extension(item, obj):
     """
     from pystac.extensions.eo import EOExtension, Band
 
-    item = EOExtension.ext(item)
     bands = []
     for bandnumber, band in obj.bands.items():
+        key = f'band{bandnumber}'
+
+        if not key in item.assets:
+            warnings.warn('Unable to find key: {key} in assets. The mapping between band objects as extracted from metadata and assets is implicit. Please ensure band keys in your assets.yml file are in the form "band#".')
+            continue
+        eo_ext = EOExtension.ext(item.assets[key])
         b = Band({'name':f'Band {bandnumber}',
-                  'common_name':band.name,
-                 'center_wavelength':band.center,
-                 'full_width_half_max':band.width})
-        bands.append(b)
-    item.bands = bands
+                  'center_wavelength':band.center,
+                  'full_width_half_max':band.width})
+        if band.name:
+            b['common_name'] = band.name
+        
+        eo_ext.bands = [b]
+    #item.bands = bands
 
 def populate_projection_extension(item, obj):
     """
@@ -90,7 +97,11 @@ def populate_projection_extension(item, obj):
         item.bbox = obj.bbox
     if obj.centroid:
         cnt = obj.centroid
-        item.centroid = {'lat':cnt.y, 'lon':cnt.x}
+        if cnt.x > 180 and obj.longitude_domain == 360:
+            offset = 360
+        else:
+            offset = 0
+        item.centroid = {'lat':cnt.y, 'lon':cnt.x-offset}
     if obj.extent_y and obj.extent_x:
         item.shape = [obj.extent_y, obj.extent_x]
     if obj.geotransform:
@@ -194,6 +205,7 @@ def to_stac(obj,
                         "https://stac-extensions.github.io/view/v1.0.0/schema.json",
                         "https://raw.githubusercontent.com/thareUSGS/ssys/main/json-schema/schema.json"],
             assets={},
+            links=[],
             collection=None):    
     
     """
@@ -226,8 +238,15 @@ def to_stac(obj,
             dt = parser.parse(dt)
     else:
         dt = obj.start_date
-        properties['start_datetime'] = obj.start_date
-        properties['stop_datetime'] = obj.stop_date
+        start_datetime = str(obj.start_date)
+        if start_datetime[-1] != 'Z':
+            start_datetime += 'Z'
+        stop_datetime = str(obj.stop_date)
+        if stop_datetime[-1] != 'Z':
+            stop_datetime += 'Z'
+
+        properties['start_datetime'] = start_datetime
+        properties['end_datetime'] = stop_datetime
     
     # Required:
     for key in ['title', 'description', 'missions', 'instruments', 'gsd', 'license']:
@@ -261,14 +280,20 @@ def to_stac(obj,
                        href=os.path.join(obj.href,f'{obj.productid}.json'),
                        collection=collection,
                        properties=properties)
+    # Asset population has to happen before extension use so that extensions that augment assets
+    # have assets to augment.
+    assets = populate_assets(assets, obj)
+    item.assets = assets
+
     for extension in extensions:
         func = extension_lookup.get(extension)
         if not func:
             warnings.warn(f'Unsupported extension: {extension}. Skipping...')
         func(item, obj)
 
-    #Populate the assets in the item using the passed assets dict
-    assets = populate_assets(assets, obj)
-    item.assets = assets
+    item.set_self_href(None)
+    for link in links:
+        item.links.append(pystac.Link.from_dict(link))
+
 
     return item

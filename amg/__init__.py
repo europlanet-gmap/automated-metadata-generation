@@ -61,9 +61,11 @@ class UnifiedMetadata():
         # If the user has not defined where the data comes from, seek for it
         values = {}
         for source in self.sources:
-            if hasattr(source, attr):
-                value = getattr(source, attr)
-                values[source] = value
+            try:
+                if hasattr(source, attr):
+                    value = getattr(source, attr)
+                    values[source] = value
+            except: continue
         
         # If more than one source delivers a piece of metadata, alert the user.
         if len(values) > 1:

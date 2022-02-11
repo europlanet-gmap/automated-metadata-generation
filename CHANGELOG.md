@@ -38,6 +38,10 @@ release.
 ### Added
   - Support for parsing bands from ISIS cube labels and ability to populate stac EO extension using said metadata.
 
+### Fixed
+  - STAC key stop_datetime is updated to be end_datetime in order to be specification compliant
+  - Unified metadata object fixed to gracefully call hasattr. hasattr executes the calling block and if the called block raises, the process exits. This changes makes it so that hasattr can still be used (instead of vars()) and a metadata object can fail. Users are still alterted on failure because the attribute is inaccessible (a warning is raised).
+
 ## [1.0.0 2021-12-04]
 
 ### Added
